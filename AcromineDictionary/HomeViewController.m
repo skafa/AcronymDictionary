@@ -52,8 +52,6 @@
         
         NSDictionary *acronym = [self.acronymList objectAtIndex:indexPath.row];
         cell.textLabel.text = [acronym longform];
-        NSNumber *fre = [acronym frequency];
-        NSNumber *since = [acronym since];
         
         cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"LongformsTableViewSubtitleText", @""),[[acronym since] stringValue], [[acronym frequency] stringValue]];
     }
@@ -84,14 +82,11 @@
         [self presentViewController:alertController animated:YES completion:nil];
     }
     
-    
-    
 }
 
 -(void)AcronymHTTPClient:(AcronymHTTPClient *)client didFailWithGetDefinitionsOfAbbreviationError:(NSError *)error
 {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
-    
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
     
@@ -105,10 +100,8 @@
 #pragma mark- UISearchBarDelegate
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    
     [searchBar resignFirstResponder];
     
-    //Add progress indicator
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     AcronymHTTPClient *client = [AcronymHTTPClient sharedAcronymHTTPClient];
